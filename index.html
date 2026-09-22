@@ -3,30 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- FIX FOR ERROR 153: Sets proper referrer policy for YouTube -->
+    <!-- strict referrer policy to fix YouTube Error 153 -->
     <meta name="referrer" content="strict-origin-when-cross-origin">
     
-    <title>Saad Dawar – Video Editor & Motion Graphics Designer</title>
+    <title>Saad Dawar | Video Editor & Motion Graphics Designer</title>
+    
+    <!-- Google Fonts & FontAwesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --bg-dark: #0a0c10;
             --bg-card: #12161f;
-            --bg-card-hover: #1a202c;
+            --bg-card-hover: #1a2233;
             --accent: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.25);
+            --accent-hover: #2563eb;
+            --accent-glow: rgba(59, 130, 246, 0.3);
+            --drive-accent: #0f9d58;
+            --yt-accent: #ff0000;
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
             --border: #1f2937;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             scroll-behavior: smooth;
         }
 
@@ -35,6 +45,21 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27303f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
         }
 
         /* Header / Navbar */
@@ -46,19 +71,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.25rem 8%;
-            background: rgba(10, 12, 16, 0.85);
-            backdrop-filter: blur(12px);
+            padding: 1.1rem 8%;
+            background: rgba(10, 12, 16, 0.88);
+            backdrop-filter: blur(16px);
             z-index: 1000;
             border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             color: var(--text-main);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .logo span {
@@ -79,12 +107,12 @@
             transition: color 0.3s ease;
         }
 
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: var(--text-main);
         }
 
         .badge {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.12);
             color: var(--accent);
             border: 1px solid rgba(59, 130, 246, 0.3);
             padding: 0.4rem 0.9rem;
@@ -107,14 +135,15 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 8rem 8% 4rem;
+            padding: 9rem 8% 5rem;
             position: relative;
+            background: radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
         }
 
         .hero-tag {
@@ -123,7 +152,11 @@
             letter-spacing: 3px;
             font-size: 0.85rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
 
         .hero h1 {
@@ -132,27 +165,40 @@
             line-height: 1.15;
             max-width: 900px;
             margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
-            max-width: 650px;
+            max-width: 680px;
             margin-bottom: 2.5rem;
         }
 
         .hero-btns {
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .btn {
             padding: 0.85rem 2rem;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             font-weight: 600;
+            font-size: 0.95rem;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
@@ -163,12 +209,13 @@
         }
 
         .btn-primary:hover {
+            background-color: var(--accent-hover);
             transform: translateY(-2px);
             box-shadow: 0 6px 25px var(--accent-glow);
         }
 
         .btn-secondary {
-            background-color: transparent;
+            background-color: rgba(255, 255, 255, 0.03);
             color: var(--text-main);
             border: 1px solid var(--border);
         }
@@ -178,126 +225,214 @@
             border-color: var(--text-muted);
         }
 
-        /* Sections Common */
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.6rem 1.4rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            border-color: #374151;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Portfolio Grid */
         section {
-            padding: 6rem 8%;
+            padding: 5rem 8%;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3.5rem;
         }
 
         .section-header h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 2.3rem;
+            font-weight: 800;
             margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
         }
 
         .section-header p {
             color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        /* Video Projects Grid */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .video-card {
-            background-color: var(--bg-card);
-            border-radius: 12px;
+            font-size: 1.05rem;
+        .project-card {
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-radius: 1rem;
             overflow: hidden;
-            border: 1px solid var(--border);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
-        .video-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: #3b82f6;
+            box-shadow: 0 12px 30px -10px rgba(59, 130, 246, 0.3);
         }
 
         .thumbnail-container {
             position: relative;
             width: 100%;
-            height: 380px;
-            background-color: #000;
+            background-color: #09090b;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .thumbnail-container img {
+        .thumbnail-container.landscape {
+            aspect-ratio: 16 / 9;
+        }
+
+        .thumbnail-container.portrait {
+            aspect-ratio: 9 / 16;
+            max-height: 420px;
+        }
+
+        .thumbnail-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.85;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: transform 0.5s ease;
         }
 
-        .video-card:hover .thumbnail-container img {
-            opacity: 1;
-            transform: scale(1.03);
+        .project-card:hover .thumbnail-img {
+            transform: scale(1.05);
         }
 
-        .drive-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .play-button {
+        .project-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            width: 56px;
+            height: 56px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .play-icon {
+            transform: scale(1);
+        }
+
+        .source-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(8px);
+            z-index: 10;
+        }
+
+        .source-badge.yt {
+            background: rgba(239, 68, 68, 0.85);
+            color: #fff;
+        }
+
+        .source-badge.drive {
+            background: rgba(37, 99, 235, 0.85);
+            color: #fff;
+        }
+
+        .source-tag.drive {
+            background: rgba(15, 157, 88, 0.85);
+            color: #fff;
+        }
+
+        /* Custom Play Overlay */
+        .play-button-overlay {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 54px;
-            height: 54px;
+            width: 58px;
+            height: 58px;
             background: rgba(59, 130, 246, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            transition: transform 0.3s ease;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+            transition: transform 0.3s ease, background-color 0.3s ease;
             z-index: 2;
         }
 
-        .play-button::after {
-            content: '';
-            display: block;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 8px 0 8px 14px;
-            border-color: transparent transparent transparent #ffffff;
+        .play-button-overlay i {
+            color: #ffffff;
+            font-size: 1.3rem;
             margin-left: 3px;
         }
 
-        .video-card:hover .play-button {
-            transform: translate(-50%, -50%) scale(1.1);
+        .video-card:hover .play-button-overlay {
+            transform: translate(-50%, -50%) scale(1.12);
+            background: var(--accent-hover);
         }
 
         .card-body {
             padding: 1.25rem;
+            background-color: var(--bg-card);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.05rem;
+            font-weight: 700;
             margin-bottom: 0.4rem;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .card-meta {
@@ -305,62 +440,79 @@
             color: var(--text-muted);
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
-        /* Modal Overlay for Video Player */
+        /* Video Modal Player */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(4, 6, 10, 0.92);
+            backdrop-filter: blur(12px);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 2000;
             padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .modal-overlay.active {
             display: flex;
+            opacity: 1;
         }
 
-        .modal-content {
+        .modal-container {
             position: relative;
             width: 100%;
-            max-width: 450px;
+            max-width: 440px;
             aspect-ratio: 9/16;
             background: #000;
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
         }
 
-        .modal-content.landscape {
-            max-width: 800px;
-            aspect-ratio: 16/9;
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
         }
 
-        .modal-content iframe {
+        .modal-container iframe {
             width: 100%;
             height: 100%;
             border: none;
+            background: #000;
         }
 
-        .close-modal {
+        .close-modal-btn {
             position: absolute;
             top: -45px;
             right: 0;
             color: #fff;
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            font-weight: bold;
-            line-height: 1;
+            background: rgba(255, 255, 255, 0.1);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
         }
 
-        /* Services / Skills */
+        .close-modal-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -369,56 +521,73 @@
 
         .service-card {
             background-color: var(--bg-card);
-            padding: 2rem;
-            border-radius: 12px;
+            padding: 2.2rem 1.8rem;
+            border-radius: var(--radius-md);
             border: 1px solid var(--border);
-            transition: background-color 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
         .service-card:hover {
             background-color: var(--bg-card-hover);
+            transform: translateY(-4px);
         }
 
         .service-icon {
             font-size: 2rem;
-            margin-bottom: 1rem;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .service-title {
             font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
         }
 
         .service-desc {
             font-size: 0.95rem;
             color: var(--text-muted);
+            line-height: 1.5;
         }
 
         /* Contact Section */
         .contact-container {
-            background-color: var(--bg-card);
-            border-radius: 16px;
+            background: linear-gradient(145deg, var(--bg-card) 0%, #0e121a 100%);
+            border-radius: var(--radius-lg);
             border: 1px solid var(--border);
-            padding: 3.5rem 2rem;
+            padding: 4rem 2rem;
             text-align: center;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .contact-details {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
+            gap: 2.5rem;
+            margin: 2.5rem 0;
         }
 
         .contact-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.4rem;
+        }
+
+        .contact-item i {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 0.2rem;
         }
 
         .contact-item label {
@@ -426,13 +595,15 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--text-muted);
+            font-weight: 600;
         }
 
-        .contact-item a, .contact-item span {
+        .contact-item a {
             color: var(--text-main);
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
             text-decoration: none;
+            transition: color 0.2s ease;
         }
 
         .contact-item a:hover {
@@ -448,24 +619,28 @@
             align-items: center;
             color: var(--text-muted);
             font-size: 0.9rem;
+            background: rgba(10, 12, 16, 0.95);
         }
 
         @media (max-width: 768px) {
             header nav { display: none; }
             .hero h1 { font-size: 2.3rem; }
             footer { flex-direction: column; gap: 1rem; text-align: center; }
+            .modal-container { max-width: 90vw; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
-        <a href="#" class="logo">Saad<span>Dawar</span></a>
+        <a href="#" class="logo">
+            <i class="fa-solid fa-film"></i>
+            Saad<span>Dawar</span>
+        </a>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#work">Work</a></li>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#work">Work Portfolio</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -473,180 +648,38 @@
         <div class="badge">Available for Hire</div>
     </header>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-tag">Cinematic Editor</div>
-        <h1>Bringing your vision to life through professional video editing</h1>
-        <p>From smooth transitions to precise audio syncing and dynamic animations, I focus on making your content not just polished, but powerful.</p>
+        <div class="hero-tag">Video Editor & Motion Graphics</div>
+        <h1>Transforming raw footage into <span>high-converting visual stories</span></h1>
+        <p>Specialized in YouTube shorts, reels, long-form edits, and motion graphic design optimized for visual retention and impact.</p>
         <div class="hero-btns">
-            <a href="#work" class="btn btn-primary">View Work</a>
-            <a href="#contact" class="btn btn-secondary">Contact Me</a>
+            <a href="#work" class="btn btn-primary"><i class="fa-solid fa-play"></i> Explore Work</a>
+            <a href="https://wa.me/923029119329" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section id="work">
         <div class="section-header">
-            <h2>My Video Projects</h2>
-            <p>A selection of recent short-form reels, motion graphics, and video editing work.</p>
+            <h2>Featured Work</h2>
+            <p>Select any video to stream directly in the high-quality interactive player modal.</p>
         </div>
 
-        <div class="portfolio-grid">
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterProjects('all')">All Edits</button>
+            <button class="tab-btn" onclick="filterProjects('drive')"><i class="fa-brands fa-google-drive"></i> Drive Reels</button>
+            <button class="tab-btn" onclick="filterProjects('youtube')"><i class="fa-brands fa-youtube"></i> YouTube Shorts</button>
+        </div>
 
-            <!-- Video 1 (YouTube Short) -->
-            <div class="video-card" onclick="openVideo('WlyCWhugOag', 'youtube', false)">
-                <div class="thumbnail-container">
-                    <img src="https://img.youtube.com/vi/WlyCWhugOag/hqdefault.jpg" alt="Video Edit 1">
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Short Video Reel 1</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>YouTube Short</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 2 (YouTube Short) -->
-            <div class="video-card" onclick="openVideo('S0wEqI6vPaM', 'youtube', false)">
-                <div class="thumbnail-container">
-                    <img src="https://img.youtube.com/vi/S0wEqI6vPaM/hqdefault.jpg" alt="Video Edit 2">
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Short Video Reel 2</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>YouTube Short</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 3 (YouTube Video - Landscape) -->
-            <div class="video-card" onclick="openVideo('evzYelBrpl8', 'youtube', true)">
-                <div class="thumbnail-container">
-                    <img src="https://img.youtube.com/vi/evzYelBrpl8/hqdefault.jpg" alt="Video Edit 3">
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Video Project 1</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>YouTube Video</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 4 (YouTube Video - Landscape) -->
-            <div class="video-card" onclick="openVideo('mInNL2eyxxo', 'youtube', true)">
-                <div class="thumbnail-container">
-                    <img src="https://img.youtube.com/vi/mInNL2eyxxo/hqdefault.jpg" alt="Video Edit 4">
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Video Project 2</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>YouTube Video</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 5 (YouTube Short) -->
-            <div class="video-card" onclick="openVideo('EW8KcqtDz88', 'youtube', false)">
-                <div class="thumbnail-container">
-                    <img src="https://img.youtube.com/vi/EW8KcqtDz88/hqdefault.jpg" alt="Video Edit 5">
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Short Video Reel 3</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>YouTube Short</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 6 (Google Drive Video 1) -->
-            <div class="video-card" onclick="openVideo('1eAyja5nRQiEvXivUIrusbOwebsGSmaip', 'drive', false)">
-                <div class="thumbnail-container">
-                    <div class="drive-placeholder">
-                        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
-                        <span>Drive Project 1</span>
-                    </div>
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Portfolio Reel Edit 1</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>Drive Stream</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 7 (Google Drive Video 2) -->
-            <div class="video-card" onclick="openVideo('1upmjUfklUfxoept7_O8LI6j8izAxyPQG', 'drive', false)">
-                <div class="thumbnail-container">
-                    <div class="drive-placeholder">
-                        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
-                        <span>Drive Project 2</span>
-                    </div>
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Portfolio Reel Edit 2</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>Drive Stream</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 8 (Google Drive Video 3) -->
-            <div class="video-card" onclick="openVideo('1ZP4eOmjx5PzRao_E4R7E74cuE3fBgzHF', 'drive', false)">
-                <div class="thumbnail-container">
-                    <div class="drive-placeholder">
-                        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
-                        <span>Drive Project 3</span>
-                    </div>
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Portfolio Reel Edit 3</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>Drive Stream</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 9 (Google Drive Video 4) -->
-            <div class="video-card" onclick="openVideo('1rAHFp_MPD0zkC3DubD0cp93HlA8ObtOA', 'drive', false)">
-                <div class="thumbnail-container">
-                    <div class="drive-placeholder">
-                        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
-                        <span>Drive Project 4</span>
-                    </div>
-                    <div class="play-button"></div>
-                </div>
-                <div class="card-body">
-                    <div class="card-title">Portfolio Reel Edit 4</div>
-                    <div class="card-meta">
-                        <span>Saad Dawar</span>
-                        <span>Drive Stream</span>
-                    </div>
-                </div>
-            </div>
-
+        <!-- Portfolio Cards Container -->
+        <div class="portfolio-grid" id="portfolioGrid">
+            <!-- Dynamically populated by JS for robust state management -->
         </div>
     </section>
 
-    <!-- Video Modal Player -->
-    <div class="modal-overlay" id="videoModal" onclick="closeVideo()">
-        <div class="modal-content" id="modalContainer" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="closeVideo()">&times;</span>
+    <div class="modal-overlay" id="videoModal" onclick="closeModal()">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <span class="close-modal-btn" onclick="closeModal()">&times;</span>
             <iframe 
                 id="modalIframe" 
                 src="" 
@@ -657,107 +690,224 @@
         </div>
     </div>
 
-    <!-- Services Section -->
     <section id="services">
         <div class="section-header">
-            <h2>What I Can Do for You</h2>
-            <p>Combining creative storytelling with technical skills to maximize viewer engagement.</p>
+            <h2>Services & Expertise</h2>
+            <p>Comprehensive video production and post-editing capabilities built for content creators & brands.</p>
         </div>
 
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-icon">🎬</div>
-                <div class="service-title">YouTube Editing</div>
-                <div class="service-desc">Engaging edits optimized for audience retention with perfect pacing and visual hooks.</div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">📚</div>
-                <div class="service-title">Course Content</div>
-                <div class="service-desc">Clear, structured educational videos crafted with clean audio and visual polish.</div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">✨</div>
-                <div class="service-title">Motion Graphics</div>
-                <div class="service-desc">Eye-catching animations and lower-thirds that elevate storytelling.</div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🎨</div>
-                <div class="service-title">Color Grading</div>
-                <div class="service-desc">Cinematic color pass that gives your footage a sleek, high-end production feel.</div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🏷️</div>
-                <div class="service-title">Logo Animation</div>
-                <div class="service-desc">Custom intros, outros, and logo stingers tailored to your brand identity.</div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🎵</div>
-                <div class="service-title">Audio Engineering</div>
-                <div class="service-desc">Clean background noise removal, leveling, sound design, and impact effects.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="contact-container">
-            <h2>Let's Work Together</h2>
-            <p style="color: var(--text-muted); margin-top: 0.5rem;">Have a project in mind or need consistent video editing support? Reach out directly!</p>
-            
-            <div class="contact-details">
-                <div class="contact-item">
-                    <label>Email</label>
-                    <a href="mailto:dawarsaadjan@gmail.com">dawarsaadjan@gmail.com</a>
+                <div class="service-icon"><i class="fa-solid fa-bolt"></i></div>
+            <!-- Project Card: Google Drive (Portrait Reel) -->
+            <div class="project-card cursor-pointer" onclick="openVideo('https://drive.google.com/file/d/1eAyja5nRQiEvXivUIrusbOwebsGSmaip/preview', 'Google Drive Reel - Commercial Cut')">
+                <div class="thumbnail-container portrait">
+                    <span class="source-badge drive">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.71 3.5L1.15 15l3.43 6h13.14l3.43-6L14.57 3.5H7.71zm1.15 2h6.28l5.15 9H16.29l-7.43-9zm-6.28 10.5h12.56l-3.43 6H4.01l-1.43-6z"/></svg>
+                        Drive
+                    </span>
+                    <img src="https://lh3.googleusercontent.com/d/1eAyja5nRQiEvXivUIrusbOwebsGSmaip" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80';" alt="Commercial Cut Poster" class="thumbnail-img">
+                    <div class="play-overlay">
+                        <div class="play-icon">
+                            <svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="contact-item">
-                    <label>Phone / WhatsApp</label>
-                    <a href="https://wa.me/923029119329" target="_blank">03029119329</a>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Motion Reel</span>
+                        <h3 class="text-lg font-bold text-white mt-1">Commercial Cut & Color Grade</h3>
+                        <p class="text-sm text-gray-400 mt-2">Dynamic vertical showcase reel featuring fast-paced cuts, sound design, and custom color timing.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-xs text-gray-300">Premiere Pro</span>
+                        <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-xs text-gray-300">Color Grading</span>
+                    </div>
                 </div>
             </div>
 
-            <a href="https://wa.me/923029119329" target="_blank" class="btn btn-primary">Start a Conversation</a>
+            <!-- Project Card: Google Drive 2 (Portrait Reel) -->
+            <div class="project-card cursor-pointer" onclick="openVideo('https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs/preview', 'Google Drive Reel - VFX & Motion Showcase')">
+                <div class="thumbnail-container portrait">
+                    <span class="source-badge drive">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.71 3.5L1.15 15l3.43 6h13.14l3.43-6L14.57 3.5H7.71zm1.15 2h6.28l5.15 9H16.29l-7.43-9zm-6.28 10.5h12.56l-3.43 6H4.01l-1.43-6z"/></svg>
+                        Drive
+                    </span>
+                    <img src="https://lh3.googleusercontent.com/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=600&q=80';" alt="VFX Showcase Poster" class="thumbnail-img">
+                    <div class="play-overlay">
+                        <div class="play-icon">
+                            <svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Shorts / Reels</span>
+                        <h3 class="text-lg font-bold text-white mt-1">VFX & Visual Effects Edit</h3>
+                        <p class="text-sm text-gray-400 mt-2">Engagement-focused short form video with advanced keyframing and motion graphics.</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-xs text-gray-300">After Effects</span>
+                        <span class="px-2.5 py-1 rounded-md bg-zinc-800 text-xs text-gray-300">VFX</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://wa.me/923029119329" target="_blank" class="btn btn-primary">
+                <i class="fa-brands fa-whatsapp"></i> Start Project Chat
+            </a>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <div>Saad Dawar – Video Editor & Motion Designer</div>
+        <div>Saad Dawar – Professional Video Editor</div>
         <div>&copy; 2026 Saad Dawar. All rights reserved.</div>
     </footer>
 
     <script>
-        function openVideo(id, type, isLandscape) {
+        /**
+         * Project Data Configuration
+         * Note: Google Drive IDs are mapped to direct thumbnail generation URLs.
+         * If image fetch fails, a custom designed Google Drive fallback card is rendered automatically!
+         */
+        const projects = [
+            {
+                id: '8CTHGZndO6Q',
+                title: 'Short Video Edit 1',
+                type: 'youtube',
+                author: 'Saad Dawar',
+                tag: 'YouTube Short',
+                // Uses YouTube high-quality auto thumbnail
+                thumb: 'https://img.youtube.com/vi/8CTHGZndO6Q/hqdefault.jpg'
+            },
+            {
+                id: '1GfQ-VbW3P4N4l8H5B6eQ9Xz9eX9X9X9X', // Replace with your actual Drive File ID
+                title: 'Portfolio Reel Edit 1',
+                type: 'drive',
+                author: 'Saad Dawar',
+                tag: 'Drive Stream',
+                // Tries direct thumbnail first, falls back gracefully to designed poster
+                thumb: 'https://lh3.googleusercontent.com/u/0/d/1GfQ-VbW3P4N4l8H5B6eQ9Xz9eX9X9X9X=w600'
+            },
+            {
+                id: '8CTHGZndO6Q',
+                title: 'Short Video Edit 2',
+                type: 'youtube',
+                author: 'Saad Dawar',
+                tag: 'YouTube Short',
+                thumb: 'https://img.youtube.com/vi/8CTHGZndO6Q/hqdefault.jpg'
+            },
+            {
+                id: '18fd128b-a05d-42af-906b-770503b47f49', // Replace with your second Drive File ID
+                title: 'Portfolio Reel Edit 2',
+                type: 'drive',
+                author: 'Saad Dawar',
+                tag: 'Drive Stream',
+                thumb: 'https://lh3.googleusercontent.com/u/0/d/18fd128b-a05d-42af-906b-770503b47f49=w600'
+            }
+        ];
+
+        function renderCards(filterType = 'all') {
+            const grid = document.getElementById('portfolioGrid');
+            grid.innerHTML = '';
+
+            const filtered = filterType === 'all' 
+                ? projects 
+                : projects.filter(p => p.type === filterType);
+
+            filtered.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => openModal(project.id, project.type);
+
+                const isDrive = project.type === 'drive';
+
+                card.innerHTML = `
+                    <div class="thumbnail-wrapper">
+                        <span class="source-tag ${project.type}">
+                            <i class="fa-brands ${isDrive ? 'fa-google-drive' : 'fa-youtube'}"></i>
+                            ${isDrive ? 'Drive' : 'YouTube'}
+                        </span>
+                        
+                        <img 
+                            src="${project.thumb}" 
+                            alt="${project.title}" 
+                            class="thumbnail-img"
+                            onerror="handleImageError(this, '${project.title}')"
+                        />
+
+                        <div class="play-button-overlay">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">${project.title}</div>
+                        <div class="card-meta">
+                            <span>${project.author}</span>
+                            <span style="color: var(--accent); font-weight:600;">${project.tag}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Fallback generator when Google Drive images fail to load or are restricted
+        function handleImageError(imgElement, title) {
+            const wrapper = imgElement.parentElement;
+            imgElement.style.display = 'none'; // Hide broken image element
+            
+            // Render styled poster fallback
+            const fallbackHTML = `
+                <div class="drive-fallback-poster">
+                    <i class="fa-solid fa-circle-play drive-fallback-icon"></i>
+                    <div style="font-weight:700; color:#fff; font-size:0.95rem; margin-bottom:4px;">${title}</div>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">Click to play drive stream</div>
+                </div>
+            `;
+            wrapper.insertAdjacentHTML('afterbegin', fallbackHTML);
+        }
+
+        function filterProjects(type) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderCards(type);
+        }
+
+        function openModal(id, type) {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('modalIframe');
-            const container = document.getElementById('modalContainer');
-            const origin = encodeURIComponent(window.location.origin || '*');
             
-            if (isLandscape) {
-                container.classList.add('landscape');
-            } else {
-                container.classList.remove('landscape');
-            }
-
             if (type === 'youtube') {
+                const origin = encodeURIComponent(window.location.origin || '*');
                 iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&enablejsapi=1&origin=${origin}`;
             } else if (type === 'drive') {
+                // Google Drive video embed URL
                 iframe.src = `https://drive.google.com/file/d/${id}/preview`;
             }
 
             modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
 
-        function closeVideo() {
+        function closeModal() {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('modalIframe');
-            iframe.src = '';
+            
+            iframe.src = ''; // Stop video playback on close
             modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restore scrolling
         }
+
+        // Escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initialize cards on page load
+        window.onload = function() {
+            renderCards('all');
+        };
     </script>
 </body>
 </html>
