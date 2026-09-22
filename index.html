@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FIX FOR ERROR 153: Sets proper referrer policy for YouTube -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <title>Saad Dawar – Video Editor & Motion Graphics Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0c10;
+            --bg-card: #12161f;
+            --bg-card-hover: #1a202c;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.25);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #1f2937;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 8%;
+            background: rgba(10, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-main);
+        }
+
+        .badge {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 0.4rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 8% 4rem;
+            position: relative;
+        }
+
+        .hero-tag {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            max-width: 900px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-card);
+            border-color: var(--text-muted);
+        }
+
+        /* Sections Common */
+        section {
+            padding: 6rem 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Video Projects Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .video-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .video-card:hover .thumbnail-container img {
+            opacity: 1;
+            transform: scale(1.03);
+        }
+
+        .drive-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--text-muted);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 54px;
+            height: 54px;
+            background: rgba(59, 130, 246, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            transition: transform 0.3s ease;
+            z-index: 2;
+        }
+
+        .play-button::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 0 8px 14px;
+            border-color: transparent transparent transparent #ffffff;
+            margin-left: 3px;
+        }
+
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Modal Overlay for Video Player */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 9/16;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+
+        .modal-content.landscape {
+            max-width: 800px;
+            aspect-ratio: 16/9;
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        /* Services / Skills */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: background-color 0.3s ease;
+        }
+
+        .service-card:hover {
+            background-color: var(--bg-card-hover);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 3.5rem 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-item label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .contact-item a, .contact-item span {
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 8%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header nav { display: none; }
+            .hero h1 { font-size: 2.3rem; }
+            footer { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">Saad<span>Dawar</span></a>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="badge">Available for Hire</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-tag">Cinematic Editor</div>
+        <h1>Bringing your vision to life through professional video editing</h1>
+        <p>From smooth transitions to precise audio syncing and dynamic animations, I focus on making your content not just polished, but powerful.</p>
+        <div class="hero-btns">
+            <a href="#work" class="btn btn-primary">View Work</a>
+            <a href="#contact" class="btn btn-secondary">Contact Me</a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="work">
+        <div class="section-header">
+            <h2>My Video Projects</h2>
+            <p>A selection of recent short-form reels, motion graphics, and video editing work.</p>
+        </div>
+
+        <div class="portfolio-grid">
+
+            <!-- Video 1 (YouTube Short) -->
+            <div class="video-card" onclick="openVideo('WlyCWhugOag', 'youtube', false)">
+                <div class="thumbnail-container">
+                    <img src="https://img.youtube.com/vi/WlyCWhugOag/hqdefault.jpg" alt="Video Edit 1">
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Short Video Reel 1</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>YouTube Short</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 2 (YouTube Short) -->
+            <div class="video-card" onclick="openVideo('S0wEqI6vPaM', 'youtube', false)">
+                <div class="thumbnail-container">
+                    <img src="https://img.youtube.com/vi/S0wEqI6vPaM/hqdefault.jpg" alt="Video Edit 2">
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Short Video Reel 2</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>YouTube Short</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 3 (YouTube Video - Landscape) -->
+            <div class="video-card" onclick="openVideo('evzYelBrpl8', 'youtube', true)">
+                <div class="thumbnail-container">
+                    <img src="https://img.youtube.com/vi/evzYelBrpl8/hqdefault.jpg" alt="Video Edit 3">
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Video Project 1</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>YouTube Video</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 4 (YouTube Video - Landscape) -->
+            <div class="video-card" onclick="openVideo('mInNL2eyxxo', 'youtube', true)">
+                <div class="thumbnail-container">
+                    <img src="https://img.youtube.com/vi/mInNL2eyxxo/hqdefault.jpg" alt="Video Edit 4">
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Video Project 2</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>YouTube Video</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 5 (YouTube Short) -->
+            <div class="video-card" onclick="openVideo('EW8KcqtDz88', 'youtube', false)">
+                <div class="thumbnail-container">
+                    <img src="https://img.youtube.com/vi/EW8KcqtDz88/hqdefault.jpg" alt="Video Edit 5">
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Short Video Reel 3</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>YouTube Short</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 6 (Google Drive Video 1) -->
+            <div class="video-card" onclick="openVideo('1eAyja5nRQiEvXivUIrusbOwebsGSmaip', 'drive', false)">
+                <div class="thumbnail-container">
+                    <div class="drive-placeholder">
+                        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+                        <span>Drive Project 1</span>
+                    </div>
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Portfolio Reel Edit 1</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>Drive Stream</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 7 (Google Drive Video 2) -->
+            <div class="video-card" onclick="openVideo('1upmjUfklUfxoept7_O8LI6j8izAxyPQG', 'drive', false)">
+                <div class="thumbnail-container">
+                    <div class="drive-placeholder">
+                        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+                        <span>Drive Project 2</span>
+                    </div>
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Portfolio Reel Edit 2</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>Drive Stream</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 8 (Google Drive Video 3) -->
+            <div class="video-card" onclick="openVideo('1ZP4eOmjx5PzRao_E4R7E74cuE3fBgzHF', 'drive', false)">
+                <div class="thumbnail-container">
+                    <div class="drive-placeholder">
+                        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+                        <span>Drive Project 3</span>
+                    </div>
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Portfolio Reel Edit 3</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>Drive Stream</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 9 (Google Drive Video 4) -->
+            <div class="video-card" onclick="openVideo('1rAHFp_MPD0zkC3DubD0cp93HlA8ObtOA', 'drive', false)">
+                <div class="thumbnail-container">
+                    <div class="drive-placeholder">
+                        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"/></svg>
+                        <span>Drive Project 4</span>
+                    </div>
+                    <div class="play-button"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">Portfolio Reel Edit 4</div>
+                    <div class="card-meta">
+                        <span>Saad Dawar</span>
+                        <span>Drive Stream</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Video Modal Player -->
+    <div class="modal-overlay" id="videoModal" onclick="closeVideo()">
+        <div class="modal-content" id="modalContainer" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeVideo()">&times;</span>
+            <iframe 
+                id="modalIframe" 
+                src="" 
+                allow="autoplay; encrypted-media; picture-in-picture" 
+                allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="section-header">
+            <h2>What I Can Do for You</h2>
+            <p>Combining creative storytelling with technical skills to maximize viewer engagement.</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🎬</div>
+                <div class="service-title">YouTube Editing</div>
+                <div class="service-desc">Engaging edits optimized for audience retention with perfect pacing and visual hooks.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📚</div>
+                <div class="service-title">Course Content</div>
+                <div class="service-desc">Clear, structured educational videos crafted with clean audio and visual polish.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">✨</div>
+                <div class="service-title">Motion Graphics</div>
+                <div class="service-desc">Eye-catching animations and lower-thirds that elevate storytelling.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <div class="service-title">Color Grading</div>
+                <div class="service-desc">Cinematic color pass that gives your footage a sleek, high-end production feel.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🏷️</div>
+                <div class="service-title">Logo Animation</div>
+                <div class="service-desc">Custom intros, outros, and logo stingers tailored to your brand identity.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎵</div>
+                <div class="service-title">Audio Engineering</div>
+                <div class="service-desc">Clean background noise removal, leveling, sound design, and impact effects.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-container">
+            <h2>Let's Work Together</h2>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Have a project in mind or need consistent video editing support? Reach out directly!</p>
+            
+            <div class="contact-details">
+                <div class="contact-item">
+                    <label>Email</label>
+                    <a href="mailto:dawarsaadjan@gmail.com">dawarsaadjan@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <label>Phone / WhatsApp</label>
+                    <a href="https://wa.me/923029119329" target="_blank">03029119329</a>
+                </div>
+            </div>
+
+            <a href="https://wa.me/923029119329" target="_blank" class="btn btn-primary">Start a Conversation</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>Saad Dawar – Video Editor & Motion Designer</div>
+        <div>&copy; 2026 Saad Dawar. All rights reserved.</div>
+    </footer>
+
+    <script>
+        function openVideo(id, type, isLandscape) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('modalIframe');
+            const container = document.getElementById('modalContainer');
+            const origin = encodeURIComponent(window.location.origin || '*');
+            
+            if (isLandscape) {
+                container.classList.add('landscape');
+            } else {
+                container.classList.remove('landscape');
+            }
+
+            if (type === 'youtube') {
+                iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&enablejsapi=1&origin=${origin}`;
+            } else if (type === 'drive') {
+                iframe.src = `https://drive.google.com/file/d/${id}/preview`;
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeVideo() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('modalIframe');
+            iframe.src = '';
+            modal.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
